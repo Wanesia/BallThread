@@ -22,12 +22,9 @@ public class Bollz extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         button.toDo(root);
-
-
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-
 }
