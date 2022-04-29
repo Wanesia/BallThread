@@ -17,10 +17,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BallThread extends Thread{
+    Random rand = new Random();
 
-    Circle ball=new Circle();
     Circle testBall=new Circle();
     double dx = 5;
     double dy = 5;
@@ -32,9 +34,9 @@ public class BallThread extends Thread{
 
     public void run() {
         while(true) {
-            System.out.println("run");
+            System.out.println("Threads: "+Thread.activeCount());
             try {
-                sleep(1000);
+                sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -43,73 +45,34 @@ public class BallThread extends Thread{
             }
         }
     }
-    /*public void checkColision(ArrayList<Circle> balls) throws NullPointerException{
 
-        for (int i = 0; i <balls.size(); i++) {
-            ball = balls.get(i);
-            for (int j = i+1; j < balls.size(); j++) {
-                decision=checkDistance(balls);
-                testBall = balls.get(j);
-                if (decision){
-                    collideBalls(ball,testBall);
-                    System.out.println("yessssssssssssssssssssssssssssssssssssssss");
-                    System.out.println("yessssssssssssssssssssssssssssssssssssssss");
-                    System.out.println("yessssssssssssssssssssssssssssssssssssssss");
-
-                }
-
-            }
-        }
-    }
-
-    private void collideBalls(Circle ball, Circle testBall) {
-        System.out.println("collide");
-    }
-
-    public boolean checkDistance(ArrayList<Circle> balls)throws NullPointerException{
-        boolean distance = false;
-        for (int i = 0; i <balls.size(); i++) {
-            ball = balls.get(i);
-            for (int j = i+1; j < balls.size(); j++) {
-
-                if(balls.get(i).getLayoutY() == balls.get(j).getLayoutY() && balls.get(i).getLayoutX() == balls.get(j).getLayoutX()){
-                    //do whatever (such as bouncing off) when the balls collide
-                    distance=true;
-                }
-            }
-        }
-        return distance;
-    }*/
 
     public void setBall(Pane pane){
-
-        //Drawing a Circle
-
-        //Setting the properties of the ball
-
-        //Setting other properties
+        Circle ball=new Circle();
         ball.setFill(Color.DARKCYAN);
 
-        //Setting the Scene
+        ball.setCenterX(rand.nextInt(50,100));
+        ball.setCenterY(rand.nextInt(50,100));
+        ball.setRadius(rand.nextInt(20,30));
+
+
         pane.getChildren().add(ball);
-        ball.setCenterX(10.0f);
-        ball.setCenterY(10.0f);
-        ball.setRadius(10.0f);
+        for(Circle ballInArray:balls){
+            System.out.println(ballInArray.toString());
+            System.out.println("array size: "+balls.size());
+        }
 
-        balls.add(ball);
-
-        //update animation(or whatever its called)
 
         Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20),
                 new EventHandler<ActionEvent>() {
-                    //velocity
-
 
                     @Override
                     public void handle(ActionEvent t) {
                         //move the ball
                         ball.setLayoutX(ball.getLayoutX() + dx);
                         ball.setLayoutY(ball.getLayoutY() + dy);
+
+
 
                         Bounds bounds = pane.getBoundsInLocal();
 
@@ -132,6 +95,7 @@ public class BallThread extends Thread{
                         ball.setTranslateX(ball.getTranslateX() + dx);
                         ball.setTranslateY(ball.getTranslateY() + dy);
 
+
                     }
 
                 }));
@@ -139,16 +103,4 @@ public class BallThread extends Thread{
         timeline.setCycleCount(Timeline.INDEFINITE);
         timeline.play();
     }
-
-
-
-    public static void main(String args[])
-    {
-        BallThread t1=new BallThread();
-        // this will call run() method
-        t1.start();
-    }
-
-
-
 }

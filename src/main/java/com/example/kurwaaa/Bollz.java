@@ -15,37 +15,15 @@ public class Bollz extends Application {
     @Override
     public void start(final Stage primaryStage) {
 
-        /*Button button = new Button();
-        button.setText("Open a New Window");
-
-
-        button.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                BallThread ball = new BallThread();
-                System.out.println("pressed");
-                ball.start();
-
-
-
-                ball.setBall(root);
-                System.out.println(Thread.activeCount());
-
-            }
-        });*/
         Pane root = new Pane();
         ButtonMenu button = new ButtonMenu();
-
-
-
-
-
         Scene scene = new Scene(root, 450, 250);
-        button.toDo(root);
         primaryStage.setTitle("Boooooollzzz");
         primaryStage.setScene(scene);
         primaryStage.show();
+        button.toDo(root);
+
+
     }
 
     public static void main(String[] args) {
